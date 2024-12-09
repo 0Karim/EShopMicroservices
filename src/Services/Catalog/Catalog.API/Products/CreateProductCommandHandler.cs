@@ -11,6 +11,7 @@ namespace Catalog.API.Products
     {  
         public Task<CreateProductResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
+
             throw new NotImplementedException();
         }
     }
