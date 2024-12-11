@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Catalog.API.Models;
+using MediatR;
 
 namespace Catalog.API.Products
 {
@@ -9,9 +10,25 @@ namespace Catalog.API.Products
 
     internal class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, CreateProductResult>
     {  
-        public Task<CreateProductResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+        public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            //create Product entity from command object
+            //save to database
+            //return CreateProductResult result
+
+            var product = new Product
+            {
+                Name = command.Name,
+                Category = command.Category,
+                Description = command.Description,
+                ImageFile = command.ImageFile,
+                Price = command.Price
+            };
+
+            // TODO
+            //save to database
+            //return result
+            return new CreateProductResult(Guid.NewGuid());
         }
     }
 }
