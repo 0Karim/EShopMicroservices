@@ -1,5 +1,5 @@
-﻿using Catalog.API.Models;
-using MediatR;
+﻿using MediatR;
+using System.Threading;
 
 namespace Catalog.API.Products
 {
@@ -9,7 +9,13 @@ namespace Catalog.API.Products
     public record CreateProductResult(Guid Id);
 
     internal class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, CreateProductResult>
-    {  
+    {
+        private readonly IDocumentSession _documentSession;
+        public CreateProductCommandHandler(IDocumentSession documentSession)
+        {
+            _documentSession = documentSession;
+        }
+
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
             //create Product entity from command object
@@ -28,6 +34,9 @@ namespace Catalog.API.Products
             // TODO
             //save to database
             //return result
+            _documentSession.Store(product);
+            await _documentSession.SaveChangesAsync(cancellationToken);
+
             return new CreateProductResult(Guid.NewGuid());
         }
     }
