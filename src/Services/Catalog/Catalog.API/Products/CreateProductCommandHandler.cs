@@ -22,22 +22,32 @@ namespace Catalog.API.Products
             //save to database
             //return CreateProductResult result
 
-            var product = new Product
+            try
             {
-                Name = command.Name,
-                Category = command.Category,
-                Description = command.Description,
-                ImageFile = command.ImageFile,
-                Price = command.Price
-            };
+                var product = new Product
+                {
+                    Name = command.Name,
+                    Category = command.Category,
+                    Description = command.Description,
+                    ImageFile = command.ImageFile,
+                    Price = command.Price
+                };
 
-            // TODO
-            //save to database
-            //return result
-            _documentSession.Store(product);
-            await _documentSession.SaveChangesAsync(cancellationToken);
+                // TODO
+                //save to database
+                //return result
+                _documentSession.Store(product);
+                await _documentSession.SaveChangesAsync(cancellationToken);
 
-            return new CreateProductResult(Guid.NewGuid());
+                return new CreateProductResult(Guid.NewGuid());
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
         }
     }
 }
