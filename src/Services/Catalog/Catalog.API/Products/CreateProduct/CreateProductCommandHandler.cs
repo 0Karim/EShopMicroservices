@@ -1,14 +1,15 @@
-﻿using MediatR;
+﻿using BuildingBlocks.CQRS;
+using MediatR;
 using System.Threading;
 
-namespace Catalog.API.Products
+namespace Catalog.API.Products.CreateProduct
 {
 
     public record CreateProductCommand(string Name, List<string> Category, string Description, string ImageFile, decimal Price)
-    : IRequest<CreateProductResult>;
+    : ICommand<CreateProductResult>;
     public record CreateProductResult(Guid Id);
 
-    internal class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, CreateProductResult>
+    internal class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         private readonly IDocumentSession _documentSession;
         public CreateProductCommandHandler(IDocumentSession documentSession)
