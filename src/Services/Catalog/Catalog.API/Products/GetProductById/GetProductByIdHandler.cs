@@ -24,7 +24,7 @@ namespace Catalog.API.Products.GetProductById
             _logger.LogInformation("GetProductByIdQueryHandler.Handle called with {@Query}", query);
             var product = await _session.LoadAsync<Product>(query.Id);
             if (product == null)
-                throw new ProductNotFoundException();
+                throw new ProductNotFoundException(query.Id);
 
             return new GetProductByIdQueryResult(product);
         }
