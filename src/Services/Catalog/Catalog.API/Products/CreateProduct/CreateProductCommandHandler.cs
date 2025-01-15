@@ -34,32 +34,22 @@ namespace Catalog.API.Products.CreateProduct
             //save to database
             //return CreateProductResult result
 
-            try
+            var product = new Product
             {
-                var product = new Product
-                {
-                    Name = command.Name,
-                    Category = command.Category,
-                    Description = command.Description,
-                    ImageFile = command.ImageFile,
-                    Price = command.Price
-                };
+                Name = command.Name,
+                Category = command.Category,
+                Description = command.Description,
+                ImageFile = command.ImageFile,
+                Price = command.Price
+            };
 
-                // TODO
-                //save to database
-                //return result
-                _documentSession.Store(product);
-                await _documentSession.SaveChangesAsync(cancellationToken);
+            // TODO
+            //save to database
+            //return result
+            _documentSession.Store(product);
+            await _documentSession.SaveChangesAsync(cancellationToken);
 
-                return new CreateProductResult(Guid.NewGuid());
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
-
+            return new CreateProductResult(Guid.NewGuid());
         }
     }
 }

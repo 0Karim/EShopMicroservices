@@ -1,9 +1,10 @@
 ﻿using BuildingBlocks.CQRS;
+using Marten.Pagination;
 using Microsoft.Extensions.Logging;
 
 namespace Catalog.API.Products.GetProducts
 {
-    public record GetProductsQuery() : IQuery<GetProductsResult>;
+    public record GetProductsQuery(int? PageNumber = 1, int? PageSize = 10) : IQuery<GetProductsResult>;
 
     public record GetProductsResult(IEnumerable<Product> Products);
 
@@ -11,18 +12,16 @@ namespace Catalog.API.Products.GetProducts
         IRequestHandler<GetProductsQuery , GetProductsResult>
     {
         private readonly IDocumentSession _session;
-        private readonly ILogger<GetProductsQueryHandler> _logger;
 
-        public GetProductsQueryHandler(IDocumentSession documentSession, ILogger<GetProductsQueryHandler> logger)
+        public GetProductsQueryHandler(IDocumentSession documentSession)
         {
             _session = documentSession;
-            _logger = logger;
         }
 
-        public async Task<GetProductsResult> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+        public async Task<GetProductsResult> Handle(GetProductsQuery query, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("GetProductsQueryHandler.Handle called with {@Query}", request);
-            var products = await _session.Query<Product>().ToListAsync(cancellationToken);
+            var products = await _session.Query<Product>()
+                .ToPagedListAsync(query.PageNumber ?? 1 , query.PageSize ?? 5 , cancellationToken);
             return new GetProductsResult(products);
         }
     }

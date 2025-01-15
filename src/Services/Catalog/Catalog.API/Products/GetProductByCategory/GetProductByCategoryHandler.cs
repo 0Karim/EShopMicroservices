@@ -10,21 +10,17 @@ namespace Catalog.API.Products.GetProductByCategory
     internal class GetProductByCategoryQueryHandler : IQueryHandler<GetProductByCategoryQuery, GetProductByCategoryResult>
     {
         private readonly IDocumentSession session;
-        private readonly ILogger<GetProductByCategoryQueryHandler> logger;
 
-        public GetProductByCategoryQueryHandler(IDocumentSession documentSession , ILogger<GetProductByCategoryQueryHandler> logger)
+        public GetProductByCategoryQueryHandler(IDocumentSession documentSession)
         {
             session = documentSession;
-            this.logger = logger;
         }
 
         public async Task<GetProductByCategoryResult> Handle(GetProductByCategoryQuery query, CancellationToken cancellationToken)
         {
-            logger.LogInformation("GetProductByCategoryQueryHandler.Handle called with {@Query}", query);
             var products = await session.Query<Product>()
                         .Where(p => p.Category.Contains(query.Category))
                         .ToListAsync(cancellationToken);
-
             return new GetProductByCategoryResult(products);
         }
     }
