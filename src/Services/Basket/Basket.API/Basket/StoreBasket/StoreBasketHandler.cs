@@ -18,9 +18,8 @@ namespace Basket.API.Basket.StoreBasket
 
         public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
         {
+            //TODO Connect with Discount microservice
             ShoppingCart cart = command.Cart;
-            //TODO: store basket in database (use Marten upsert - if exist = update, if not exist = insert)
-            //TODO: update cache
             await repository.StoreBasket(cart, cancellationToken);
             return new StoreBasketResult(command.Cart.UserName);
         }
