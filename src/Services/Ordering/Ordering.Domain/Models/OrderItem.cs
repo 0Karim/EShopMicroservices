@@ -1,21 +1,21 @@
-﻿using System;
-
+﻿
 
 namespace Ordering.Domain.Models
 {
-    public class OrderItem : Entity<Guid>
+    public class OrderItem : Entity<OrderItemId>
     {
-        public OrderItem(Guid orderId, Guid productId, int quantity, decimal price)
+        public OrderItem(OrderId orderId, ProductId productId, int quantity, decimal price)
         {
+            Id = OrderItemId.Of(Guid.NewGuid());
             OrderId = orderId;
             ProductId = productId;
             Quantity = quantity;
             Price = price;
         }
 
-        public Guid OrderId { private set; get; } = default!;
+        public OrderId OrderId { private set; get; } = default!;
 
-        public Guid ProductId { private set; get; } = default!;
+        public ProductId ProductId { private set; get; } = default!;
 
         public int Quantity { private set; get; } = default!;
 
