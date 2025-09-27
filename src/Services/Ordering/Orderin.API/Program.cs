@@ -1,3 +1,7 @@
+using Ordering.API;
+using Ordering.Infrastructure;
+using Ordering.Infrastructure.Data.Extentions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,19 +11,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add services to the container.
+builder.Services
+    //.AddApplicationServices()
+    .AddInfrastructureServices(builder.Configuration)
+/*    .AddApiServices()*/;
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseApiServices();
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    await app.Services.InitialiseDatabaseAsync();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();
