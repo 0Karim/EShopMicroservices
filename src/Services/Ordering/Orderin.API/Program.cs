@@ -1,4 +1,5 @@
 using Ordering.API;
+using Ordering.Application;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.Data.Extentions;
 
@@ -13,7 +14,7 @@ builder.Services.AddSwaggerGen();
 
 // Add services to the container.
 builder.Services
-    //.AddApplicationServices()
+    .AddApplicationServices()
     .AddInfrastructureServices(builder.Configuration)
 /*    .AddApiServices()*/;
 
