@@ -12,13 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="EventHandlers\" />
+    <Folder Include="Orders\EventHandlers\" />
     <Folder Include="Data\" />
-    <Folder Include="Queries\" />
+    <Folder Include="Orders\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
     <ProjectReference Include="..\Ordering.Domain\Ordering.Domain.csproj" />
   </ItemGroup>
 
