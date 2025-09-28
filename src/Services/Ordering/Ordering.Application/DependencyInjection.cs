@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-
 namespace Ordering.Application
 {
     public static class DependencyInjection
@@ -11,7 +10,6 @@ namespace Ordering.Application
             {
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
-
             return services;
         }
     }
