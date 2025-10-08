@@ -1,6 +1,4 @@
 ﻿using BuildingBlocks.CQRS;
-using MediatR;
-using System.Threading;
 
 namespace Catalog.API.Products.CreateProduct
 {
