@@ -6,7 +6,7 @@ namespace Catalog.API.Products.GetProductById
 {
     public record GetProductByIdQuery (Guid Id) : IQuery<GetProductByIdQueryResult>;
 
-    public record GetProductByIdQueryResult(Product product);
+    public record GetProductByIdQueryResult(Product Product);
 
     internal class GetProductByIdHandler : IQueryHandler<GetProductByIdQuery, GetProductByIdQueryResult>
     {
