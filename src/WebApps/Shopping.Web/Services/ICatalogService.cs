@@ -2,8 +2,9 @@
 {
     public interface ICatalogService
     {
-        [Get("/catalog-service/products?pageNumber={pageNumber}&pageSize={pageSize}")]
-        Task<GetProductsResponse> GetProducts(int? pageNumber = 1, int? pageSize = 10);
+        //[Get("/catalog-service/products?pageNumber={pageNumber}&pageSize={pageSize}")]
+        [Get("/catalog-service/products")]
+        Task<GetProductsResponse> GetProducts(GetProductsRequest request);
 
         [Get("/catalog-service/products/{id}")]
         Task<GetProductByIdResponse> GetProduct(Guid id);

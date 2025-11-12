@@ -11,6 +11,9 @@
     }
 
     //wrapper classes
+
+    public record GetProductsRequest(int? PageNumber = 1, int? PageSize = 10);
+
     public record GetProductsResponse(IEnumerable<ProductModel> Products);
 
     public record GetProductByCategoryResponse(IEnumerable<ProductModel> Products);
